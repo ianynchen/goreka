@@ -3,7 +3,28 @@ package eureka
 import (
 	"encoding/json"
 	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
 )
+
+/*
+Signal handler for ctrl-C and kill operations. Invoke this method in your
+service implementation before starting server. This handler unregisters with
+Eureka server first before exiting.
+*/
+func SigTermHandler() {
+
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt)
+	signal.Notify(c, syscall.SIGTERM)
+
+	go func() {
+		<-c
+		Unregister()
+		os.Exit(1)
+	}()
+}
 
 func HealthHandler(w http.ResponseWriter, r *http.Request) {
 

@@ -1,7 +1,7 @@
 package eureka
 
 import (
-	"./../util"
+	"goreka/util"
 )
 
 var uuid string
@@ -9,4 +9,8 @@ var uuid string
 func Register() {
 
 	uuid = util.GetUuid()
+}
+
+func Unregister() {
+
 }

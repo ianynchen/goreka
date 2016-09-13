@@ -1,7 +1,14 @@
+/*
+Provides support functionality used by Eureka client.
+*/
 package util
 
 import "net"
 
+/*
+Gets IP address of current machine as a string, also returns a bool to indicate if
+the operation was successful.
+*/
 func GetIP() (string, bool) {
 	addrs, err := net.InterfaceAddrs()
 	if err != nil {
