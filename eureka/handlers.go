@@ -36,3 +36,17 @@ func HealthHandler(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 }
+
+type EurekaHandler interface {
+	Register(appId string) bool
+	Unregister(appId, instanceId string) bool
+	SendHeartbeat(appId, instanceId string) bool
+	QueryForAllInstances() bool
+	QueryForAllAppIdInstances(appId string) bool
+	QueryForSpecific(appId, instanceId string) bool
+	TakeOutOfService(appId, instanceId string) bool
+	PutBackIntoService(appId, instanceId string) bool
+	UpdateMetaData(appId, instanceId string) bool
+	QueryForAllInstancesUnderVip(vip string) bool
+	QueryForAllInstancesUnderSecureVip(svip string) bool
+}
